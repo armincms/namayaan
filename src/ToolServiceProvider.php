@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova; 
 use Armincms\Bios\Bios;
+use Armincms\Snail\Snail as NovaSnail;
 
 class ToolServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,18 @@ class ToolServiceProvider extends ServiceProvider
                 Namayaan::class
             ]);
         });
+
+        NovaSnail::serving(function () {
+            NovaSnail::resources([
+                Snail\Company::class,
+                Snail\Genre::class,
+                Snail\Movie::class,
+                Snail\Series::class,
+                Snail\Episode::class,
+            ]);
+        });
+
+        \Config::set('snail.path', 'api');
     }
 
     /**
